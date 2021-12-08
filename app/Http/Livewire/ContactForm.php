@@ -19,6 +19,10 @@ class ContactForm extends Component
         'email' => 'required|email',
     ];
 
+    public function removeAlert() {
+        $this->message = '';
+    }
+
     public function updated($propertyName)
     {
         $this->validateOnly($propertyName);
@@ -31,6 +35,8 @@ class ContactForm extends Component
             'message' => $this->message
         ];
         Mail::to($this->email)->send(new ContactFormMail($contact_form));
+
+
 
         session()->flash('success_message', 'Your mail sent succesfully we contact with you soon.');
     }
